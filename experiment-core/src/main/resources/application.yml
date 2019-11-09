@@ -1,0 +1,15 @@
+# 服务端口
+server:
+  port: 8080
+
+#
+## 服务名
+#spring:
+#  application:
+#    name: experiment-core
+#  profiles:
+#    active: dev
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/reportSystem
+#    password: root
+#    username: root

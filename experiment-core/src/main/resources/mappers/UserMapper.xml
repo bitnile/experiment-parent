@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nanwulife.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.nanwulife.pojo.User">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="stu_num" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="stu_class" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="password" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="role" javaType="java.lang.Short" jdbcType="INTEGER" />
+      <arg column="major_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="stu_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, stu_num, stu_class, password, role, major_id, stu_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nanwulife.pojo.User" useGeneratedKeys="true" keyProperty="id">
+    insert into user (id, stu_num, stu_class, 
+      password, role, major_id, stu_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{stuNum,jdbcType=BIGINT}, #{stuClass,jdbcType=INTEGER},
+      #{password,jdbcType=CHAR}, #{role,jdbcType=SMALLINT}, #{majorId,jdbcType=INTEGER}, #{stuName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nanwulife.pojo.User" useGeneratedKeys="true" keyProperty="id">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stuNum != null">
+        stu_num,
+      </if>
+      <if test="stuClass != null">
+        stu_class,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="stuName != null">
+        stu_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stuNum != null">
+        #{stuNum,jdbcType=BIGINT},
+      </if>
+      <if test="stuClass != null">
+        #{stuClass,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=SMALLINT},
+      </if>
+      <if test="majorId != null">
+        #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="stuName != null">
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nanwulife.pojo.User">
+    update user
+    <set>
+      <if test="stuNum != null">
+        stu_num = #{stuNum,jdbcType=BIGINT},
+      </if>
+      <if test="stuClass != null">
+        stu_class = #{stuClass,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=SMALLINT},
+      </if>
+      <if test="majorId != null">
+        major_id = #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="stuName != null">
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nanwulife.pojo.User">
+    update user
+    set stu_num = #{stuNum,jdbcType=BIGINT},
+      stu_class = #{stuClass,jdbcType=INTEGER},
+      password = #{password,jdbcType=CHAR},
+      role = #{role,jdbcType=SMALLINT},
+      major_id = #{majorId,jdbcType=INTEGER},
+      stu_name = #{stuName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUsername" parameterType="java.lang.Long" resultType="int">
+    select
+    count(*)
+    from user
+    where stu_num = #{username,jdbcType=BIGINT}
+  </select>
+
+
+ <select id="selectIDByUsername" parameterType="java.lang.Long" resultType="int">
+    select
+    id
+    from user
+    where stu_num = #{username,jdbcType=BIGINT}
+  </select>
+
+  <select id="checkByUsername" parameterType="java.lang.Long" resultType="com.nanwulife.pojo.User">
+    select
+    *
+    from user
+    where stu_num = #{username,jdbcType=BIGINT}
+  </select>
+  
+  <select id="queryMajornameAndClassByNum" parameterType="java.lang.Long" resultType="com.nanwulife.vo.StuBasicInfoVo">
+    SELECT major.id, major.name as majorName, stu_class
+    FROM major, user 
+    WHERE user.major_id=major.id 
+    AND user.stu_num=#{stu_num, jdbcType=BIGINT}
+  </select>
+</mapper>
