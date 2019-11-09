@@ -4,12 +4,19 @@ server:
 
 #
 ## 服务名
-#spring:
-#  application:
-#    name: experiment-core
-#  profiles:
-#    active: dev
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/reportSystem
-#    password: root
-#    username: root
+spring:
+  application:
+    name: experiment-core
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/reportSystem
+    password: root
+    username: root
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+
+#mybatis
+mybatis:
+  type-aliases-package: com.nanwulife.pojo
+  mapper-locations: classpath:mappers/*.xml
+  config-location: classpath:mybatis-config.xml
