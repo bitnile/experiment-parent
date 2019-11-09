@@ -32,7 +32,7 @@
 		<commons-io.version>2.0.1</commons-io.version>
 		<pagehelper.version>4.1.0</pagehelper.version>
 		<thumbnailator.version>[0.4, 0.5)</thumbnailator.version>
-		<c3p0.version>0.9.5.2</c3p0.version>
+		<c3p0.version>0.9.5.4</c3p0.version>
 		<swagger.version>2.7.0</swagger.version>
 	
 	
